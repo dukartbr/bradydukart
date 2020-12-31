@@ -2,9 +2,6 @@ import React from 'react';
 import { Box, CustomColors } from './design';
 import { Formik } from 'formik';
 import BlockContent from '@sanity/block-content-to-react';
-import * as yup from 'yup';
-
-let FormSchema = {};
 
 const ContactForm = ({ contactFormIntro }) => {
   return (

@@ -31,11 +31,6 @@ function App() {
       .catch(console.error);
   }, []);
 
-  console.log(
-    'header :>> ',
-    landingPageItems?.find((i) => i.slug === 'code').header
-  );
-
   return (
     <div
       className='App'
@@ -46,7 +41,7 @@ function App() {
       <Container bg={`${CustomColors.blue}`} padding='0'>
         <Navbar />
         <Row height='300px'>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <h1
               style={{
                 fontSize: '5rem',
@@ -83,14 +78,14 @@ function App() {
       </Container>
       <Container bg={`${CustomColors.yellow}`} id='about' height='600px'>
         <Row padding='60px 0px'>
-          <Box colWidth='6' centered={true}>
+          <Box colWidth='12' centered={true} colMdWidth='6' colSmWidth='12'>
             <Image
               src='./images/brady_selfie.JPG'
               alt='Brady Dukart'
               width='50%'
             />
           </Box>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <h1
               style={{
                 color: CustomColors.blue,
@@ -149,10 +144,10 @@ function App() {
           </div>
         </Row>
         <Row>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <Image src='./images/code.gif' alt='Code' width='75%' />
           </Box>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
               {landingPageItems ? (
                 <BlockContent
@@ -196,7 +191,7 @@ function App() {
           </div>
         </Row>
         <Row>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
               {landingPageItems ? (
                 <BlockContent
@@ -213,7 +208,7 @@ function App() {
               )}
             </Box>
           </Box>
-          <Box colWidth='6'>
+          <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <Image src='./images/ux.gif' alt='ux' width='100%' />
           </Box>
         </Row>
@@ -241,12 +236,18 @@ function App() {
           </Box>
         </Row>
         <Row>
-          <ContactForm />
+          {landingPageItems && (
+            <ContactForm
+              contactFormIntro={
+                landingPageItems?.find((i) => i.slug === 'contact_form').body
+              }
+            />
+          )}
         </Row>
       </Container>
       <Container bg={`${CustomColors.yellow}`} height='60px' padding='5px'>
         <Row>
-          <Box colWidth='10'>
+          <Box colWidth='7' colSmWidth='10'>
             <p
               style={{
                 color: CustomColors.blue,
@@ -257,7 +258,7 @@ function App() {
               Brady Dukart | 2020
             </p>
           </Box>
-          <Box colWidth='2'>
+          <Box colWidth='5' colSmWidth='2'>
             <List>
               <ListItem link='https://github.com/dukartbr' emptyTarget={true}>
                 <i

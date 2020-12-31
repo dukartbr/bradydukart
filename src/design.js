@@ -3,17 +3,22 @@ import React from 'react';
 const Box = ({
   children,
   colWidth,
+  colMdWidth,
+  colSmWidth,
   border,
   padding,
   bg,
   centered = false,
   color,
   fontWeight,
+  hideOnMobile,
 }) => {
   return (
     <div
       className={`col-${colWidth} ${
         centered ? 'd-flex justify-content-center' : ''
+      } col-md-${colMdWidth} col-sm-${colSmWidth} ${
+        hideOnMobile ? 'd-none d-sm-block' : ''
       }`}
       style={{
         border,
@@ -29,30 +34,31 @@ const Box = ({
   );
 };
 
-const Container = ({
-  children,
-  bg,
-  height = '800px',
-  padding = '3rem 0',
-  id,
-}) => {
+const Container = ({ children, bg, padding = '3rem 0', id }) => {
   return (
     <div
       style={{
         backgroundColor: `${bg}`,
-        height,
         padding,
-        maxHeight: `${height}`,
+        minHeight: `100%`,
       }}
+      className="container-fluid'"
       id={id}
     >
-      <div className='container'>{children}</div>
+      <div
+        className='container container-fluid'
+        style={{
+          backgroundSize: 'contain',
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };
 
 const List = ({ children }) => {
-  return <ul className='nav'>{children}</ul>;
+  return <ul className='nav d-flex'>{children}</ul>;
 };
 
 const ListItem = ({ children, link = null, emptyTarget = false }) => {
@@ -66,6 +72,7 @@ const ListItem = ({ children, link = null, emptyTarget = false }) => {
         textTransform: 'uppercase',
         fontWeight: 'bold',
         paddingTop: '5px',
+        float: 'left',
       }}
     >
       <a
@@ -90,7 +97,6 @@ const Row = ({ children, padding = '10px 0px', height }) => {
       className='row'
       style={{
         padding,
-        height,
       }}
     >
       {children}
@@ -142,7 +148,14 @@ const CustomColors = {
 };
 
 const Image = ({ src, alt, width = '100%' }) => (
-  <img src={src} alt={alt} width={width} />
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    style={{
+      objectFit: 'contain',
+    }}
+  />
 );
 
 export {

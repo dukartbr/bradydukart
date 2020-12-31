@@ -1,24 +1,21 @@
 import React from 'react';
 import { Box, CustomColors } from './design';
 import { Formik } from 'formik';
+import BlockContent from '@sanity/block-content-to-react';
 import * as yup from 'yup';
 
 let FormSchema = {};
 
-const ContactForm = () => {
+const ContactForm = ({ contactFormIntro }) => {
   return (
-    <Box bg={CustomColors.orange} padding='7rem'>
-      <p
-        style={{
-          color: CustomColors.white,
-          fontWeight: 'bold',
-        }}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-        vestibulum luctus finibus. In erat quam, fringilla in ipsum ut, cursus
-        gravida nibh. Donec in accumsan ex, eget lobortis ipsum. Nunc ac aliquam
-        eros. Nam tempor neque faucibus, consectetur lorem a, aliquam mauris.
-      </p>
+    <Box
+      bg={CustomColors.orange}
+      padding='2rem 1rem'
+      color={CustomColors.white}
+      fontWeight='bold'
+    >
+      <BlockContent blocks={contactFormIntro} />
+
       <Formik
         initialValues={{ name: '', email: '', message: '' }}
         validateOnChange={false}
@@ -91,15 +88,14 @@ const ContactForm = () => {
               </label>
               <div className='col-sm-10'>
                 <div className='form-group'>
-                  <input
-                    type='text'
+                  <textarea
                     className='form-control'
                     id='inputMessage'
                     name='message'
                     placeholder='Web Site, Animated Logo, Lawn Mowed, whatever you need!'
                     onChange={handleChange}
                     value={values.message}
-                  />
+                  ></textarea>
                 </div>
               </div>
             </div>

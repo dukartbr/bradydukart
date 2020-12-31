@@ -1,4 +1,6 @@
 import React from 'react';
+import sanityClient from './client';
+import BlockContent from '@sanity/block-content-to-react';
 import {
   Box,
   Container,
@@ -14,8 +16,33 @@ import ContactForm from './ContactForm';
 import Navbar from './Navbar';
 
 function App() {
+  const [landingPageItems, setLandingPageItems] = React.useState(null);
+
+  React.useEffect(() => {
+    sanityClient
+      .fetch(
+        `*[_type == "landingpageitems"]{
+        header,
+        slug,
+        body,
+      }`
+      )
+      .then((data) => setLandingPageItems(data))
+      .catch(console.error);
+  }, []);
+
+  console.log(
+    'header :>> ',
+    landingPageItems?.find((i) => i.slug === 'code').header
+  );
+
   return (
-    <div className='App'>
+    <div
+      className='App'
+      style={{
+        scrollSnapType: 'y proximity',
+      }}
+    >
       <Container bg={`${CustomColors.blue}`} padding='0'>
         <Navbar />
         <Row height='300px'>
@@ -26,7 +53,7 @@ function App() {
                 textTransform: 'uppercase',
                 color: CustomColors.yellow,
                 fontWeight: 'bold',
-                marginTop: '8rem',
+                marginTop: '18rem',
               }}
             >
               Oh Hey There!
@@ -35,18 +62,20 @@ function App() {
               <h3
                 style={{
                   color: CustomColors.white,
-                  marginTop: '12rem',
+                  marginTop: '4rem',
                 }}
               >
                 My name is Brady and I'm a ...
               </h3>
+              <div className=''></div>
               <h4
                 style={{
-                  color: CustomColors.orange,
+                  color: CustomColors.yellow,
                   fontSize: '3rem',
+                  textTransform: 'uppercase',
                 }}
               >
-                Web Engineer
+                <Image src='./images/skills.gif' alt='Skills' width='100%' />
               </h4>
             </Box>
           </Box>
@@ -69,34 +98,28 @@ function App() {
                 fontWeight: 'bold',
               }}
             >
-              How Can I Help Ya?
+              {landingPageItems
+                ? landingPageItems?.find((i) => i.slug === 'personal_intro')
+                    .header
+                : ''}
             </h1>
             <ColorBar width='500' height='10' fill={CustomColors.orange} />
-            <Box padding='2rem 0'>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
+            <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
+              {landingPageItems ? (
+                <BlockContent
+                  blocks={
+                    landingPageItems
+                      ? landingPageItems?.find(
+                          (i) => i.slug === 'personal_intro'
+                        ).body
+                      : ''
+                  }
+                  projectId={sanityClient.projectId}
+                  dataset={sanityClient.dataset}
+                />
+              ) : (
+                ''
+              )}
             </Box>
           </Box>
         </Row>
@@ -117,64 +140,33 @@ function App() {
                   fontWeight: 'bold',
                 }}
               >
-                Let's Talk Code
+                {landingPageItems
+                  ? landingPageItems.find((i) => i.slug === 'code').header
+                  : ''}
               </h2>
               <ColorBar width='330' height='10' fill={CustomColors.yellow} />
             </Box>
           </div>
         </Row>
         <Row>
-          <Box colWidth='6'></Box>
           <Box colWidth='6'>
-            <Box padding='2rem 0'>
-              <p
-                style={{
-                  color: CustomColors.white,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.white,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.white,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.white,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
+            <Image src='./images/code.gif' alt='Code' width='75%' />
+          </Box>
+          <Box colWidth='6'>
+            <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
+              {landingPageItems ? (
+                <BlockContent
+                  blocks={
+                    landingPageItems
+                      ? landingPageItems?.find((i) => i.slug === 'code').body
+                      : ''
+                  }
+                  projectId={sanityClient.projectId}
+                  dataset={sanityClient.dataset}
+                />
+              ) : (
+                ''
+              )}
             </Box>
           </Box>
         </Row>
@@ -195,7 +187,9 @@ function App() {
                   fontWeight: 'bold',
                 }}
               >
-                But What About Design?
+                {landingPageItems
+                  ? landingPageItems.find((i) => i.slug === 'design').header
+                  : ''}
               </h2>
               <ColorBar width='520' height='10' fill={CustomColors.orange} />
             </Box>
@@ -203,58 +197,25 @@ function App() {
         </Row>
         <Row>
           <Box colWidth='6'>
-            <Box padding='2rem 0'>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
-              <p
-                style={{
-                  color: CustomColors.blue,
-                  fontWeight: 'bold',
-                }}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                vestibulum luctus finibus. In erat quam, fringilla in ipsum ut,
-                cursus gravida nibh. Donec in accumsan ex, eget lobortis ipsum.
-                Nunc ac aliquam eros. Nam tempor neque faucibus, consectetur
-                lorem a, aliquam mauris.
-              </p>
+            <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
+              {landingPageItems ? (
+                <BlockContent
+                  blocks={
+                    landingPageItems
+                      ? landingPageItems?.find((i) => i.slug === 'design').body
+                      : ''
+                  }
+                  projectId={sanityClient.projectId}
+                  dataset={sanityClient.dataset}
+                />
+              ) : (
+                ''
+              )}
             </Box>
           </Box>
-          <Box colWidth='6'></Box>
+          <Box colWidth='6'>
+            <Image src='./images/ux.gif' alt='ux' width='100%' />
+          </Box>
         </Row>
       </Container>
       <Container bg={`${CustomColors.blue}`} id='contact'>
@@ -300,7 +261,7 @@ function App() {
             <List>
               <ListItem link='https://github.com/dukartbr' emptyTarget={true}>
                 <i
-                  class='fab fa-github'
+                  className='fab fa-github'
                   style={{
                     fontSize: '1.5rem',
                     color: CustomColors.blue,
@@ -312,7 +273,7 @@ function App() {
                 emptyTarget={true}
               >
                 <i
-                  class='fab fa-instagram'
+                  className='fab fa-instagram'
                   style={{
                     fontSize: '1.5rem',
                     color: CustomColors.blue,

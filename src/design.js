@@ -1,6 +1,15 @@
 import React from 'react';
 
-const Box = ({ children, colWidth, border, padding, bg, centered = false }) => {
+const Box = ({
+  children,
+  colWidth,
+  border,
+  padding,
+  bg,
+  centered = false,
+  color,
+  fontWeight,
+}) => {
   return (
     <div
       className={`col-${colWidth} ${
@@ -10,6 +19,9 @@ const Box = ({ children, colWidth, border, padding, bg, centered = false }) => {
         border,
         padding,
         backgroundColor: `${bg}`,
+        color,
+        fontWeight,
+        overflow: 'scroll',
       }}
     >
       {children}
@@ -30,6 +42,7 @@ const Container = ({
         backgroundColor: `${bg}`,
         height,
         padding,
+        maxHeight: `${height}`,
       }}
       id={id}
     >
@@ -128,7 +141,7 @@ const CustomColors = {
   orange: '#F57B51',
 };
 
-const Image = ({ src, alt, width }) => (
+const Image = ({ src, alt, width = '100%' }) => (
   <img src={src} alt={alt} width={width} />
 );
 

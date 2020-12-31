@@ -1,10 +1,13 @@
 import React from 'react';
 import { Box, CustomColors } from './design';
 import { Formik } from 'formik';
+import * as yup from 'yup';
+
+let FormSchema = {};
 
 const ContactForm = () => {
   return (
-    <Box bg={CustomColors.orange} padding='8rem'>
+    <Box bg={CustomColors.orange} padding='7rem'>
       <p
         style={{
           color: CustomColors.white,
@@ -16,73 +19,112 @@ const ContactForm = () => {
         gravida nibh. Donec in accumsan ex, eget lobortis ipsum. Nunc ac aliquam
         eros. Nam tempor neque faucibus, consectetur lorem a, aliquam mauris.
       </p>
-      <form className='py-4'>
-        <div class='form-group row'>
-          <label for='staticEmail' class='col-sm-2 col-form-label'>
-            <p
-              style={{
-                color: CustomColors.white,
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-              }}
-            >
-              Name
-            </p>
-          </label>
-          <div class='col-sm-10'>
-            <input
-              type='text'
-              class='form-control'
-              id='inputName'
-              placeholder='Nice to meet ya!'
-            />
-          </div>
-        </div>
-        <div class='form-group row'>
-          <label for='inputPassword' class='col-sm-2 col-form-label'>
-            <p
-              style={{
-                color: CustomColors.white,
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-              }}
-            >
-              Email
-            </p>
-          </label>
-          <div class='col-sm-10'>
-            <input
-              type='text'
-              class='form-control'
-              id='inputEmail'
-              placeholder='How Can I Reach Ya?'
-            />
-          </div>
-        </div>
-        <div class='form-group row'>
-          <label for='inputPassword' class='col-sm-2 col-form-label'>
-            <p
-              style={{
-                color: CustomColors.white,
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-              }}
-            >
-              How Can I Help?
-            </p>
-          </label>
-          <div class='col-sm-10'>
-            <div class='form-group'>
-              <textarea
-                class='form-control'
-                id='exampleFormControlTextarea1'
-                rows='3'
-                placeholder='Web Site, Animated Logo, Lawn Mowed, whatever you need!'
-              ></textarea>
+      <Formik
+        initialValues={{ name: '', email: '', message: '' }}
+        validateOnChange={false}
+        // validationSchema={FormSchema}
+        onSubmit={(submitValues) => {
+          console.log('submitValues', submitValues);
+        }}
+      >
+        {({ handleSubmit, values, isSubmitting, handleChange }) => (
+          <form className='py-4' onSubmit={handleSubmit} data-netlify='true'>
+            <div className='form-group row'>
+              <label htmlFor='inputName' className='col-sm-2 col-form-label'>
+                <p
+                  style={{
+                    color: CustomColors.white,
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Name
+                </p>
+              </label>
+              <div className='col-sm-10'>
+                <input
+                  type='text'
+                  className='form-control'
+                  id='inputName'
+                  name='name'
+                  onChange={handleChange}
+                  value={values.name}
+                  placeholder='Nice to meet ya!'
+                />
+              </div>
             </div>
-          </div>
-        </div>
-      </form>
+            <div className='form-group row'>
+              <label htmlFor='inputEmail' className='col-sm-2 col-form-label'>
+                <p
+                  style={{
+                    color: CustomColors.white,
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  Email
+                </p>
+              </label>
+              <div className='col-sm-10'>
+                <input
+                  type='email'
+                  className='form-control'
+                  id='inputEmail'
+                  name='email'
+                  onChange={handleChange}
+                  value={values.email}
+                  placeholder='How Can I Reach Ya?'
+                />
+              </div>
+            </div>
+            <div className='form-group row'>
+              <label htmlFor='inputMessage' className='col-sm-2 col-form-label'>
+                <p
+                  style={{
+                    color: CustomColors.white,
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  How Can I Help?
+                </p>
+              </label>
+              <div className='col-sm-10'>
+                <div className='form-group'>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='inputMessage'
+                    name='message'
+                    placeholder='Web Site, Animated Logo, Lawn Mowed, whatever you need!'
+                    onChange={handleChange}
+                    value={values.message}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className='d-flex justify-content-center'
+              style={{
+                marginTop: '1rem',
+              }}
+            >
+              <button
+                className='btn'
+                style={{
+                  backgroundColor: CustomColors.blue,
+                  color: CustomColors.white,
+                  textTransform: 'uppercase',
+                }}
+                disabled={isSubmitting}
+                type='submit'
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        )}
+      </Formik>
     </Box>
   );
 };

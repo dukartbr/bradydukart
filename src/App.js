@@ -96,11 +96,11 @@ function App() {
               {landingPageItems
                 ? landingPageItems?.find((i) => i.slug === 'personal_intro')
                     .header
-                : ''}
+                : 'How Can I Help Ya?'}
             </h1>
             <ColorBar width='500' height='10' fill={CustomColors.orange} />
             <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
-              {landingPageItems ? (
+              {landingPageItems && false ? (
                 <BlockContent
                   blocks={
                     landingPageItems
@@ -113,7 +113,23 @@ function App() {
                   dataset={sanityClient.dataset}
                 />
               ) : (
-                ''
+                <>
+                  <p>
+                    Whether you need a jaw-droppingly beautiful website with an
+                    intuative user interface or an engaging animated logo I'm
+                    your guy! With over 5 years of industry experience in web
+                    engineering, graphic design, and motion graphics, I will
+                    provide you or your business with creative solutions to your
+                    digital needs!
+                  </p>
+                  <p>
+                    Having been born and raised in chilly Fargo, North Dakota
+                    (oh yeah you betchya!), I was brought up with the typical
+                    midwestern work ethic that I proudly pair with bleeding edge
+                    web engineering technologies to provide the optimal
+                    solutions for the needs of hard workers like you!
+                  </p>
+                </>
               )}
             </Box>
           </Box>
@@ -137,7 +153,7 @@ function App() {
               >
                 {landingPageItems
                   ? landingPageItems.find((i) => i.slug === 'code').header
-                  : ''}
+                  : "Let's Talk Code"}
               </h2>
               <ColorBar width='330' height='10' fill={CustomColors.yellow} />
             </Box>
@@ -149,7 +165,7 @@ function App() {
           </Box>
           <Box colWidth='12' colMdWidth='6' colSmWidth='12'>
             <Box padding='2rem 0' fontWeight='bold' color={CustomColors.blue}>
-              {landingPageItems ? (
+              {landingPageItems && false ? (
                 <BlockContent
                   blocks={
                     landingPageItems
@@ -160,7 +176,73 @@ function App() {
                   dataset={sanityClient.dataset}
                 />
               ) : (
-                ''
+                <>
+                  <p>
+                    I live in the React ecosystem. The possibilities provided by
+                    this wonderful library are endless. With a strong knowledge
+                    of the most recent API can weild the power of React to build
+                    your website you're invisioning!
+                  </p>
+                  <p>
+                    Utilizing front-end UI libraries like{' '}
+                    <a
+                      href='https://getbootstrap.com/'
+                      target='_blank'
+                      rel='noreferrer'
+                      style={{
+                        color: CustomColors.blue,
+                      }}
+                    >
+                      Bootstrap
+                    </a>
+                    ,{' '}
+                    <a
+                      href='https://material-ui.com/'
+                      target='_blank'
+                      rel='noreferrer'
+                      style={{
+                        color: CustomColors.blue,
+                      }}
+                    >
+                      Material
+                    </a>
+                    , or{' '}
+                    <a
+                      href='https://chakra-ui.com/'
+                      target='_blank'
+                      rel='noreferrer'
+                      style={{
+                        color: CustomColors.blue,
+                      }}
+                    >
+                      Chakra
+                    </a>{' '}
+                    and modern hosting services like{' '}
+                    <a
+                      href='https://www.netlify.com/'
+                      target='_blank'
+                      rel='noreferrer'
+                      style={{
+                        color: CustomColors.blue,
+                      }}
+                    >
+                      Netlify
+                    </a>
+                    , paired with a custom CMS built on{' '}
+                    <a
+                      href='https://www.sanity.io/'
+                      target='_blank'
+                      rel='noreferrer'
+                      style={{
+                        color: CustomColors.blue,
+                      }}
+                    >
+                      Sanity
+                    </a>
+                    , we can work together to build the perfect website and
+                    back-end content structure to suit your needs.
+                  </p>
+                </>
               )}
             </Box>
           </Box>

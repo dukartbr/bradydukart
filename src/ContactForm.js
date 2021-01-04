@@ -43,7 +43,7 @@ const ContactForm = ({ contactFormIntro }) => {
                   name='name'
                   onChange={handleChange}
                   value={values.name}
-                  placeholder='Nice to meet ya!'
+                  placeholder='Nice To Meet Ya!'
                 />
               </div>
             </div>
@@ -89,7 +89,7 @@ const ContactForm = ({ contactFormIntro }) => {
                     className='form-control'
                     id='inputMessage'
                     name='message'
-                    placeholder='Web Site, Animated Logo, Lawn Mowed, whatever you need!'
+                    placeholder='Web Site, Animated Logo, Lawn Mowed, Whatever You Need!'
                     onChange={handleChange}
                     value={values.message}
                   ></textarea>

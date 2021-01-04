@@ -1,9 +1,8 @@
 import React from 'react';
 import { Box, CustomColors } from './design';
 import { Formik } from 'formik';
-import BlockContent from '@sanity/block-content-to-react';
 
-const ContactForm = ({ contactFormIntro }) => {
+const ContactForm = () => {
   return (
     <Box
       bg={CustomColors.orange}
@@ -11,7 +10,13 @@ const ContactForm = ({ contactFormIntro }) => {
       color={CustomColors.white}
       fontWeight='bold'
     >
-      <BlockContent blocks={contactFormIntro} />
+      <Box padding='2rem 3rem'>
+        <p>
+          A new website? A beautiful logo? Some video editing? Wanna get some
+          'za? Whatever you're looking for, I'm here to help! Just drop a
+          message below and I'll reach out to you as soon as possible!
+        </p>
+      </Box>
 
       <Formik
         initialValues={{ name: '', email: '', message: '' }}

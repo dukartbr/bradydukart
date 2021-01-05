@@ -27,7 +27,12 @@ const ContactForm = () => {
         }}
       >
         {({ handleSubmit, values, isSubmitting, handleChange }) => (
-          <form className='py-4' onSubmit={handleSubmit} data-netlify='true'>
+          <form
+            className='py-4'
+            onSubmit={handleSubmit}
+            data-netlify='true'
+            netlify
+          >
             <div className='form-group row'>
               <label htmlFor='inputName' className='col-sm-2 col-form-label'>
                 <p
